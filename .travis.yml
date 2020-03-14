@@ -5,3 +5,487 @@ before_install:
   - docker build -t tfadams/react-app -f Dockerfile.dev .
 script:
   - docker run -e CI=true tfadams/react-app npm run test
+deploy:
+  edge: true 
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: react-app
+  env: "ReactApp-env"
+  bucket_name: "                                  <none>              440a1dbdf578        3 days ago          324MB
+<none>                                                     <none>              3dcf422ecf8d        3 days ago          324MB
+<none>                                                     <none>              69f188156fc0        3 days ago          324MB
+<none>                                                     <none>              801e9fe8ead2        3 days ago          324MB
+<none>                                                     <none>              c272bb1379c4        3 days ago          324MB
+<none>                                                     <none>              4ab86c0c314e        3 days ago          485MB
+nodejs-redis_node-app                                      latest              f1dab4520d0a        6 days ago          118MB
+<none>                                                     <none>              761d1fb14108        6 days ago          118MB
+<none>                                                     <none>              b5b61f333ff2        6 days ago          118MB
+nginx                                                      latest              6678c7c2e56c        9 days ago          127MB
+neptuneapi_seed-dynamo-local                               latest              c062861c40e6        9 days ago          377MB
+tfadams/nodejs3                                            latest              51b261634f34        9 days ago          914MB
+<none>                                                     <none>              10c895efbf2d        9 days ago          914MB
+neptuneapi_worker-deadbeef-local                           latest              f1d9623c3ac6        10 days ago         351MB
+neptuneapi_worker-deaffeed-local                           latest              f1d9623c3ac6        10 days ago         351MB
+tfadams/redis                                              lastest             775202dbb8f7        10 days ago         8.55MB
+tfadams/nodejs2                                            latest              cf541fbed705        10 days ago         115MB
+tfadams/nodejs                                             latest              2f7463453218        10 days ago         115MB
+redis                                                      latest              7eed8df88d3b        2 weeks ago         98.2MB
+node                                                       10                  aa6432763c11        2 weeks ago         911MB
+node                                                       alpine              b7dc3fe8d4f8        3 weeks ago         115MB
+neptuneapi_neptune.api                                     latest              2082068fc200        3 weeks ago         632MB
+neptuneapi_worker-local                                    latest              5b8a8023ca46        3 weeks ago         351MB
+neptuneapi_flower-local                                    latest              116639b09ff5        3 weeks ago         154MB
+docker.werally.in/postgres                                 latest              0d2531ee3abd        4 weeks ago         397MB
+docker.werally.in/python                                   alpine              a1cd5654cf3c        5 weeks ago         109MB
+docker.werally.in/amazon/dynamodb-local                    latest              2908e5ceb67a        6 weeks ago         611MB
+docker.werally.in/python/3.7/slim-buster-git-make-pipenv   1.0.0               7ab0ebbaba33        7 weeks ago         327MB
+docker.werally.in/redis                                    alpine              b68707e68547        7 weeks ago         29.8MB
+alpine                                                     latest              e7d92cdc71fe        7 weeks ago         5.59MB
+busybox                                                    latest              6d5fcfe5ff17        2 months ago        1.22MB
+praqma/network-multitool                                   latest              3619cb81e582        7 months ago        107MB
+prakhar1989/static-site                                    latest              f01030e1dcf3        4 years ago         134MB
+➜  containers docker run redis
+1:C 13 Mar 2020 23:19:13.817 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 13 Mar 2020 23:19:13.817 # Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 13 Mar 2020 23:19:13.817 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 13 Mar 2020 23:19:13.820 * Running mode=standalone, port=6379.
+1:M 13 Mar 2020 23:19:13.820 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 13 Mar 2020 23:19:13.820 # Server initialized
+1:M 13 Mar 2020 23:19:13.821 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+1:M 13 Mar 2020 23:19:13.821 * Ready to accept connections
+^C1:signal-handler (1584141837) Received SIGINT scheduling shutdown...
+1:M 13 Mar 2020 23:23:57.246 # User requested shutdown...
+1:M 13 Mar 2020 23:23:57.247 * Saving the final RDB snapshot before exiting.
+1:M 13 Mar 2020 23:23:57.250 * DB saved on disk
+1:M 13 Mar 2020 23:23:57.250 # Redis is now ready to exit, bye bye...
+➜  containers ls
+containers nodejs     react      redis
+➜  containers cd react/frontend
+➜  frontend git:(master) ✗ ls
+Dockerfile         README.md          docker-compose.yml package-lock.json  public
+Dockerfile.dev     build              node_modules       package.json       src
+➜  frontend git:(master) ✗ vim Dockerfile
+➜  frontend git:(master) ✗ ls
+Dockerfile         Dockerfile.dev     README.md          build              docker-compose.yml node_modules       package-lock.json  package.json       public             src
+➜  frontend git:(master) ✗ git init
+Reinitialized existing Git repository in /Users/tatiana.adams/containers/react/frontend/.git/
+➜  frontend git:(master) ✗ git add .
+➜  frontend git:(master) ✗ git commit -m "init new repo"
+[master 9f32802] init new repo
+ 4 files changed, 42 insertions(+), 1 deletion(-)
+ create mode 100644 Dockerfile
+ create mode 100644 Dockerfile.dev
+ create mode 100644 docker-compose.yml
+➜  frontend git:(master) git remote add origin https://github.com/ladiitati/react-app.git
+➜  frontend git:(master) git push origin master
+To https://github.com/ladiitati/react-app.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/ladiitati/react-app.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+➜  frontend git:(master) git pull
+warning: no common commits
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/ladiitati/react-app
+ * [new branch]      master     -> origin/master
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+➜  frontend git:(master) git pull origin master
+From https://github.com/ladiitati/react-app
+ * branch            master     -> FETCH_HEAD
+fatal: refusing to merge unrelated histories
+➜  frontend git:(master) git push origin master
+To https://github.com/ladiitati/react-app.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/ladiitati/react-app.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+➜  frontend git:(master) cd ~/
+➜  ~ git clone https://github.com/ladiitati/react-app.git
+Cloning into 'react-app'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+➜  ~ cp -r * ~/containers/react/frontend/ ~/react-app
+^C
+➜  ~ cd react-app
+➜  react-app git:(master) ✗ ls
+$(curl              Applications        CUSTON_LABEL.tar.gz Desktop             README.md
+➜  react-app git:(master) ✗ cp -r * ~/containers/react/frontend/ .
+cp: ./$(curl and $(curl are identical (not copied).
+cp: ./Applications and Applications are identical (not copied).
+cp: ./CUSTON_LABEL.tar.gz and CUSTON_LABEL.tar.gz are identical (not copied).
+cp: ./Desktop and Desktop are identical (not copied).
+cp: ./README.md and README.md are identical (not copied).
+cp: ./.git/objects/42/25d0968a4446d1fc71e86f6bbf6ab22aa81807: Permission denied
+cp: ./.git/objects/9a/e0ee7af982c502b9db12679844eecc90f5d906: Permission denied
+cp: ./.git/objects/85/a4249fb7fc43fdcd6dc8c021297e332e349526: Permission denied
+➜  react-app git:(master) ✗ sudo cp -R * ~/containers/react/frontend/ .
+Password:
+cp: ./$(curl and $(curl are identical (not copied).
+cp: ./Applications and Applications are identical (not copied).
+cp: ./CUSTON_LABEL.tar.gz and CUSTON_LABEL.tar.gz are identical (not copied).
+cp: ./Desktop and Desktop are identical (not copied).
+cp: ./Dockerfile and Dockerfile are identical (not copied).
+cp: ./Dockerfile.dev and Dockerfile.dev are identical (not copied).
+cp: ./README.md and README.md are identical (not copied).
+cp: ./build and build are identical (not copied).
+cp: ./docker-compose.yml and docker-compose.yml are identical (not copied).
+cp: ./node_modules and node_modules are identical (not copied).
+cp: ./package-lock.json and package-lock.json are identical (not copied).
+cp: ./package.json and package.json are identical (not copied).
+cp: ./public and public are identical (not copied).
+cp: ./src and src are identical (not copied).
+➜  react-app git:(master) ✗ cp -R * ~/containers/react/frontend/ .
+cp: ./$(curl and $(curl are identical (not copied).
+cp: ./Applications and Applications are identical (not copied).
+cp: ./CUSTON_LABEL.tar.gz and CUSTON_LABEL.tar.gz are identical (not copied).
+cp: ./Desktop and Desktop are identical (not copied).
+cp: ./Dockerfile and Dockerfile are identical (not copied).
+cp: ./Dockerfile.dev and Dockerfile.dev are identical (not copied).
+cp: ./README.md and README.md are identical (not copied).
+cp: ./build and build are identical (not copied).
+cp: ./docker-compose.yml and docker-compose.yml are identical (not copied).
+cp: ./node_modules and node_modules are identical (not copied).
+cp: ./package-lock.json and package-lock.json are identical (not copied).
+cp: ./package.json and package.json are identical (not copied).
+cp: ./public and public are identical (not copied).
+cp: ./src and src are identical (not copied).
+cp: ./.git/objects/6a/f7a1088e1be97634a2a63a2f912b8341c7d272: Permission denied
+cp: ./.git/objects/a4/e47a6545bc15971f8f63fba70e4013df88a664: Permission denied
+cp: ./.git/objects/bd/50e10be0d576d5de106002e37ab902fa26b3a2: Permission denied
+cp: ./.git/objects/bc/d5dfd67cd0361b78123e95c2dd96031f27f743: Permission denied
+cp: ./.git/objects/fc/44b0a3796c0e0a64c3d858ca038bd4570465d9: Permission denied
+cp: ./.git/objects/ca/1cb1eb998f8f8456484a06cb31dda472a4c020: Permission denied
+cp: ./.git/objects/ec/2585e8c0bb8188184ed1e0703c4c8f2a8419b0: Permission denied
+cp: ./.git/objects/42/25d0968a4446d1fc71e86f6bbf6ab22aa81807: Permission denied
+cp: ./.git/objects/87/d1be551891a8eccfe648e1b5a49b5751e5cad5: Permission denied
+cp: ./.git/objects/74/b5e053450a48a6bdb4d71aad648e7af821975c: Permission denied
+cp: ./.git/objects/74/b1a275a0ea7df518f17bcea5375abf003abe55: Permission denied
+cp: ./.git/objects/19/62353d8dae79ea2a4b98b9ae50273c31cdbf91: Permission denied
+cp: ./.git/objects/4d/29575de80483b005c29bfcac5061cd2f45313e: Permission denied
+cp: ./.git/objects/4d/b7ebc25c2d066cd254805af5dda1ed1d2bc819: Permission denied
+cp: ./.git/objects/9f/32802ef20035ef60cb2795dad9d7e3d771f242: Permission denied
+cp: ./.git/objects/6b/60c1042f58d9fabb75485aa3624dddcf633b5c: Permission denied
+cp: ./.git/objects/9a/e0ee7af982c502b9db12679844eecc90f5d906: Permission denied
+cp: ./.git/objects/54/ef09430b11a9e551ddfe1107287e168c6f0e11: Permission denied
+cp: ./.git/objects/08/0d6c77ac21bb2ef88a6992b2b73ad93daaca92: Permission denied
+cp: ./.git/objects/52/f0773ff7a035eafdc88d59d39d1df652d5afa4: Permission denied
+cp: ./.git/objects/dc/a289fa246b294def8c13712d904398d29f222a: Permission denied
+cp: ./.git/objects/b6/2878dfd433e65b562b7fdb0a7fd777707b4620: Permission denied
+cp: ./.git/objects/a9/8354029271c6e111bbc43142caaef9b7d23dda: Permission denied
+cp: ./.git/objects/aa/069f27cbd9d53394428171c3989fd03db73c76: Permission denied
+cp: ./.git/objects/ef/a168f010ce6231e89391c954cecb06abb35408: Permission denied
+cp: ./.git/objects/c4/838eb55f00c00e07363bca37e2f40fb46337a6: Permission denied
+cp: ./.git/objects/e9/e57dc4d41b9b46e05112e9f45b7ea6ac0ba15e: Permission denied
+cp: ./.git/objects/ce/9cbd2946d6962cfc19d65c8cb91757d8f4d4c6: Permission denied
+cp: ./.git/objects/70/65e45e2131fd43104380a2feacf4d3a389a572: Permission denied
+cp: ./.git/objects/1e/1b6fb93dcdd020e2ef890848b07e01bd439c67: Permission denied
+cp: ./.git/objects/12/bd0714f50b7cda8fd5fe0bef971215c1d838b4: Permission denied
+cp: ./.git/objects/85/a4249fb7fc43fdcd6dc8c021297e332e349526: Permission denied
+➜  react-app git:(master) ✗ sudo cp -R * ~/containers/react/frontend/ .
+cp: ./$(curl and $(curl are identical (not copied).
+cp: ./Applications and Applications are identical (not copied).
+cp: ./CUSTON_LABEL.tar.gz and CUSTON_LABEL.tar.gz are identical (not copied).
+cp: ./Desktop and Desktop are identical (not copied).
+cp: ./Dockerfile and Dockerfile are identical (not copied).
+cp: ./Dockerfile.dev and Dockerfile.dev are identical (not copied).
+cp: ./README.md and README.md are identical (not copied).
+cp: ./build and build are identical (not copied).
+cp: ./docker-compose.yml and docker-compose.yml are identical (not copied).
+cp: ./node_modules and node_modules are identical (not copied).
+cp: ./package-lock.json and package-lock.json are identical (not copied).
+cp: ./package.json and package.json are identical (not copied).
+cp: ./public and public are identical (not copied).
+cp: ./src and src are identical (not copied).
+➜  react-app git:(master) ✗ ls
+$(curl              CUSTON_LABEL.tar.gz Dockerfile          README.md           docker-compose.yml  package-lock.json   public
+Applications        Desktop             Dockerfile.dev      build               node_modules        package.json        src
+➜  react-app git:(master) ✗ ls -al
+total 1240
+-rw-r--r--   1 tatiana.adams  staff     195 Mar 13 16:44 $(curl
+drwxr-xr-x  18 tatiana.adams  staff     576 Mar 13 16:45 .
+drwxr-xr-x+ 90 tatiana.adams  staff    2880 Mar 13 16:46 ..
+drwxr-xr-x  15 tatiana.adams  staff     480 Mar 13 16:46 .git
+-rw-r--r--   1 tatiana.adams  staff     310 Mar 13 16:45 .gitignore
+drwx------@  3 tatiana.adams  staff      96 Mar 13 16:44 Applications
+-rw-r--r--   1 tatiana.adams  staff      45 Mar 13 16:44 CUSTON_LABEL.tar.gz
+drwx------@  9 tatiana.adams  staff     288 Mar 13 16:45 Desktop
+-rw-r--r--   1 tatiana.adams  staff     183 Mar 13 16:45 Dockerfile
+-rw-r--r--   1 tatiana.adams  staff     110 Mar 13 16:45 Dockerfile.dev
+-rw-r--r--   1 tatiana.adams  staff    2891 Mar 13 16:45 README.md
+drwxr-xr-x  12 tatiana.adams  staff     384 Mar 13 16:45 build
+-rw-r--r--   1 tatiana.adams  staff     131 Mar 13 16:45 docker-compose.yml
+drwxr-xr-x   2 tatiana.adams  staff      64 Mar 13 16:45 node_modules
+-rw-r--r--   1 tatiana.adams  staff  599691 Mar 13 16:45 package-lock.json
+-rw-r--r--   1 tatiana.adams  staff     744 Mar 13 16:45 package.json
+drwxr-xr-x   8 tatiana.adams  staff     256 Mar 13 16:45 public
+drwxr-xr-x  10 tatiana.adams  staff     320 Mar 13 16:45 src
+➜  react-app git:(master) ✗ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	$(curl
+	Applications/
+	CUSTON_LABEL.tar.gz
+	Desktop/
+
+nothing added to commit but untracked files present (use "git add" to track)
+➜  react-app git:(master) ✗ ls
+$(curl              CUSTON_LABEL.tar.gz Dockerfile          README.md           docker-compose.yml  package-lock.json   public
+Applications        Desktop             Dockerfile.dev      build               node_modules        package.json        src
+➜  react-app git:(master) ✗ cd ..
+➜  ~ ls
+$(curl                       Library                      VirtualBox VMs               config                       history.txt                  tatiana_test_snapshot.tar.gz
+Applications                 Movies                       api_proj                     containers                   history_command.txt          test-devops
+CUSTON_LABEL.tar.gz          Music                        bash_script.sh               credentials                  learnPython                  www.amazon.com
+Desktop                      Pictures                     bashscript.txt               devops                       mgd.postgres.dump            zips.json
+Documents                    Pipfile                      bigcat-3309                  dvdrental.tar                programming
+Downloads                    Pipfile.lock                 cloneme                      eclipse-workspace            react-app
+Dropbox                      Public                       code                         get-pip.py                   tatiana_snapshot.tar.gz
+➜  ~ cd react-app
+➜  react-app git:(master) ✗ ls
+$(curl              CUSTON_LABEL.tar.gz Dockerfile          README.md           docker-compose.yml  package-lock.json   public
+Applications        Desktop             Dockerfile.dev      build               node_modules        package.json        src
+➜  react-app git:(master) ✗ rm -rf $(curl
+cmdsubst>
+cmdsubst> )
+curl: try 'curl --help' or 'curl --manual' for more information
+➜  react-app git:(master) ✗ ls
+$(curl              CUSTON_LABEL.tar.gz Dockerfile          README.md           docker-compose.yml  package-lock.json   public
+Applications        Desktop             Dockerfile.dev      build               node_modules        package.json        src
+➜  react-app git:(master) ✗ rm -rf \$\(curl
+➜  react-app git:(master) ✗ ls
+Applications        Desktop             Dockerfile.dev      build               node_modules        package.json        src
+CUSTON_LABEL.tar.gz Dockerfile          README.md           docker-compose.yml  package-lock.json   public
+➜  react-app git:(master) ✗ rm CUSTON_LABEL.tar.gz
+➜  react-app git:(master) ✗ git status -s
+?? Applications/
+?? Desktop/
+➜  react-app git:(master) ✗ rm -rf Applications Desktop
+➜  react-app git:(master) ls
+Dockerfile         Dockerfile.dev     README.md          build              docker-compose.yml node_modules       package-lock.json  package.json       public             src
+➜  react-app git:(master) git status -s
+➜  react-app git:(master) git add .
+➜  react-app git:(master) git status -s
+➜  react-app git:(master) git commit -m "init repo"
+On branch master
+nothing to commit, working tree clean
+➜  react-app git:(master) git pull origin master
+From https://github.com/ladiitati/react-app
+ * branch            master     -> FETCH_HEAD
+fatal: refusing to merge unrelated histories
+➜  react-app git:(master) ls
+Dockerfile         Dockerfile.dev     README.md          build              docker-compose.yml node_modules       package-lock.json  package.json       public             src
+➜  react-app git:(master) cd .
+➜  react-app git:(master) cd ..
+➜  ~ rm -rf react-app
+➜  ~ git clone https://github.com/ladiitati/react-app.git
+Cloning into 'react-app'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+➜  ~ cd react-app
+➜  react-app git:(master) ls
+README.md
+➜  react-app git:(master) cp ~/containers/react/frontend/* .
+cp: /Users/tatiana.adams/containers/react/frontend/build is a directory (not copied).
+cp: /Users/tatiana.adams/containers/react/frontend/node_modules is a directory (not copied).
+cp: /Users/tatiana.adams/containers/react/frontend/public is a directory (not copied).
+cp: /Users/tatiana.adams/containers/react/frontend/src is a directory (not copied).
+➜  react-app git:(master) ✗ ls
+Dockerfile         Dockerfile.dev     README.md          docker-compose.yml package-lock.json  package.json
+➜  react-app git:(master) ✗ cp -R ~/containers/react/frontend/* .
+➜  react-app git:(master) ✗ ls
+Dockerfile         Dockerfile.dev     README.md          build              docker-compose.yml node_modules       package-lock.json  package.json       public             src
+➜  react-app git:(master) ✗ git add .
+➜  react-app git:(master) ✗ git status -s
+A  Dockerfile
+A  Dockerfile.dev
+M  README.md
+A  build/asset-manifest.json
+A  build/favicon.ico
+A  build/index.html
+A  build/logo192.png
+A  build/logo512.png
+A  build/manifest.json
+A  build/precache-manifest.45e43b2478a942d66ec597325b3c86e8.js
+A  build/robots.txt
+A  build/service-worker.js
+A  build/static/css/main.5f361e03.chunk.css
+A  build/static/css/main.5f361e03.chunk.css.map
+A  build/static/js/2.4024f285.chunk.js
+A  build/static/js/2.4024f285.chunk.js.LICENSE.txt
+A  build/static/js/2.4024f285.chunk.js.map
+A  build/static/js/main.4235a0dd.chunk.js
+A  build/static/js/main.4235a0dd.chunk.js.map
+A  build/static/js/runtime-main.18445cb3.js
+A  build/static/js/runtime-main.18445cb3.js.map
+A  build/static/media/logo.5d5d9eef.svg
+A  docker-compose.yml
+A  package-lock.json
+A  package.json
+A  public/favicon.ico
+A  public/index.html
+A  public/logo192.png
+A  public/logo512.png
+A  public/manifest.json
+A  public/robots.txt
+A  src/App.css
+A  src/App.js
+A  src/App.test.js
+A  src/index.css
+A  src/index.js
+A  src/logo.svg
+A  src/serviceWorker.js
+A  src/setupTests.js
+➜  react-app git:(master) ✗ git commit -m "init repo"
+[master dbeeb54] init repo
+ 39 files changed, 15598 insertions(+), 1 deletion(-)
+ create mode 100644 Dockerfile
+ create mode 100644 Dockerfile.dev
+ rewrite README.md (100%)
+ create mode 100644 build/asset-manifest.json
+ create mode 100644 build/favicon.ico
+sudo: require
+ create mode 100644 build/index.html
+ create mode 100644 build/logo192.png
+ create mode 100644 build/logo512.png
+ create mode 100644 build/manifest.json
+ create mode 100644 build/precache-manifest.45e43b2478a942d66ec597325b3c86e8.js
+ create mode 100644 build/robots.txt
+ create mode 100644 build/service-worker.js
+ create mode 100644 build/static/css/main.5f361e03.chunk.css
+ create mode 100644 build/static/css/main.5f361e03.chunk.css.map
+ create mode 100644 build/static/js/2.4024f285.chunk.js
+ create mode 100644 build/static/js/2.4024f285.chunk.js.LICENSE.txt
+ create mode 100644 build/static/js/2.4024f285.chunk.js.map
+ create mode 100644 build/static/js/main.4235a0dd.chunk.js
+ create mode 100644 build/static/js/main.4235a0dd.chunk.js.map
+ create mode 100644 build/static/js/runtime-main.18445cb3.js
+ create mode 100644 build/static/js/runtime-main.18445cb3.js.map
+ create mode 100644 build/static/media/logo.5d5d9eef.svg
+ create mode 100644 docker-compose.yml
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+ create mode 100644 public/favicon.ico
+sudo: require
+ create mode 100644 public/index.html
+ create mode 100644 public/logo192.png
+ create mode 100644 public/logo512.png
+ create mode 100644 public/manifest.json
+ create mode 100644 public/robots.txt
+ create mode 100644 src/App.css
+ create mode 100644 src/App.js
+ create mode 100644 src/App.test.js
+ create mode 100644 src/index.css
+ create mode 100644 src/index.js
+ create mode 100644 src/logo.svg
+ create mode 100644 src/serviceWorker.js
+ create mode 100644 src/setupTests.js
+➜  react-app git:(master) git push origin master
+Enumerating objects: 44, done.
+sudo: required
+Counting objects: 100% (44/44), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (41/41), done.
+Writing objects: 100% (42/42), 313.16 KiB | 6.14 MiB/s, done.
+Total 42 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), done.
+To https://github.com/ladiitati/react-app.git
+   4225d09..dbeeb54  master -> master
+➜  react-app git:(master) git config --global user.name "ladiitati"
+➜  react-app git:(master) vim .travis.yml
+➜  react-app git:(master) ✗ git add .
+➜  react-app git:(master) ✗ git comit -m "travis yml"
+git: 'comit' is not a git command. See 'git --help'.
+
+The most similar command is
+sudo: required
+	commit
+➜  react-app git:(master) ✗ git commit -m "travis yml"
+[master ebb9b52] travis yml
+ 1 file changed, 7 insertions(+)
+ create mode 100644 .travis.yml
+➜  react-app git:(master) git push
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 393 bytes | 393.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/ladiitati/react-app.git
+   dbeeb54..ebb9b52  master -> master
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t tfadams/react-app -f Dockerfile.dev .
+script:
+  - docker run -e CI=true tfadams/react-app npm run test
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: react-app
+  env: "ReactApp-env"
+  bucket_name: "elasticbeanstalk-us-east-1-967195537723"
+  bucket_path: "react-app"
+  on:
+    branch: master
+  access_key_id: "$aws_devop_access_key"
+  secret_access_key:
+    secure: "$aws_devop_secret_key"
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+"
+  bucket_path: "test-react"
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
